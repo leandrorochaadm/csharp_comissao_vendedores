@@ -4,13 +4,28 @@ using System.Text;
 
 namespace Leandro_atividade2.RegraDeNegocio
 {
-    class Funcionario
+    abstract class Funcionario
     {
-        
-        private double comissao;
-
-        public string Nome { get; set; }
+        public string Cpf { get; set; }
         public double Salario { get; set; }
-        public double PercentualComissao { get; set; }
+        public double TotalVendas { get; set; }
+        public double MetaDeVendas { get; set; }
+        public double SalarioFinal { get; set; }
+   
+        public double Bonificacao() 
+        {
+            return TotalVendas*0.02;
+        }
+        public abstract double ComissaoDasVendas();
+
+        public void CalcularSalarioFinal() 
+        {
+            if (TotalVendas >= (MetaDeVendas * 0.65))
+            {
+                SalarioFinal = Salario + ComissaoDasVendas();
+            } else
+            SalarioFinal =  Salario;
+        }
+        public override string ToString() => $"CPF: {Cpf} Salario: {Salario.ToString("C")} TotalVendas: {TotalVendas.ToString("C")} MetaDeVendas: {MetaDeVendas.ToString("C")} SalarioFinal: {SalarioFinal.ToString("C")} ComissaoDasVendas: {ComissaoDasVendas().ToString("C")}";
     }
 }
