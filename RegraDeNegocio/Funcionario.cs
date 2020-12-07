@@ -26,6 +26,11 @@ namespace Leandro_atividade2.RegraDeNegocio
             } else
             SalarioFinal =  Salario;
         }
-        public override string ToString() => $"CPF: {Cpf} Salario: {Salario.ToString("C")} TotalVendas: {TotalVendas.ToString("C")} MetaDeVendas: {MetaDeVendas.ToString("C")} SalarioFinal: {SalarioFinal.ToString("C")} ComissaoDasVendas: {ComissaoDasVendas().ToString("C")}";
+
+        private double QuantoFaltaMeta()
+        {
+            return (1 - (TotalVendas/MetaDeVendas))*100;
+        }
+        public override string ToString() => $"CPF: {Cpf} Salario: {Salario.ToString("C")} TotalVendas: {TotalVendas.ToString("C")} MetaDeVendas: {MetaDeVendas.ToString("C")} QuantoFaltaMeta: {QuantoFaltaMeta().ToString("N2")}% SalarioFinal: {SalarioFinal.ToString("C")} ComissaoDasVendas: {ComissaoDasVendas().ToString("C")}";
     }
 }

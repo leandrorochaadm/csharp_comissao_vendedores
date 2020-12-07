@@ -11,8 +11,114 @@ namespace Leandro_atividade2
             //comissao
             //% pra atingir meta
             //salario final
+            int opcao = int.MaxValue;
+            do
+            {
+                Console.WriteLine(">> Dados do funcionário <<\n");
+                Console.Write("CPF: ");
+                string cpf = Console.ReadLine();
 
-            Funcionario junior = new VendedorJunior();
+                Console.Write("Salário: ");
+                double salario = Convert.ToDouble(Console.ReadLine());
+
+                Console.Write("Meta De Vendas: ");
+                double metaDeVendas = Convert.ToDouble(Console.ReadLine());
+
+                Console.Write("Total das Vendas: ");
+                double totalVendas = Convert.ToDouble(Console.ReadLine());
+
+                Console.WriteLine("Escolha um cargo: \n1-Vendedor\n2-Supervisor\n3-Gerente\n0-Para Sair");
+                
+                opcao = Convert.ToInt32(Console.ReadLine());
+
+                switch (opcao)
+                {
+                    case 1: EscolhaVendedor(cpf, totalVendas, salario, metaDeVendas);
+                        break;
+                    case 2: EscolhaLideranca(cpf, totalVendas, salario, metaDeVendas, opcao);
+                        break;
+                    case 3: EscolhaLideranca(cpf, totalVendas, salario, metaDeVendas, opcao);
+                        break;
+                    default: opcao = int.MaxValue;
+                        break;
+                }
+
+
+            } while (opcao==0);
+
+            void EscolhaVendedor(string cpf, double totalVendas, double salario, double metaDeVendas) 
+            {
+                Console.WriteLine("Quantos anos o(a) vendedor(a) tem de empresa?");
+                int tempoEmpresa = Convert.ToInt32(Console.ReadLine());
+                if (tempoEmpresa <= 3) 
+                {
+                    Funcionario junior = new VendedorJunior();
+                    junior.Cpf = cpf;
+                    junior.TotalVendas = totalVendas;
+                    junior.Salario = salario;
+                    junior.MetaDeVendas = metaDeVendas;
+                    junior.CalcularSalarioFinal();
+                    Console.WriteLine($"Vendedor junior: {junior}");
+                }
+                else if (tempoEmpresa > 3 && tempoEmpresa <= 7) 
+                {
+                    Funcionario padrao = new VendedorPadrao();
+                    padrao.Cpf = cpf;
+                    padrao.TotalVendas = totalVendas;
+                    padrao.Salario = salario;
+                    padrao.MetaDeVendas = metaDeVendas;
+                    padrao.CalcularSalarioFinal();
+                    Console.WriteLine($"Vendedor padrão-> {padrao}");
+                }
+                else if (tempoEmpresa>7) 
+                {
+                    Funcionario master = new VendedorMaster();
+                    master.Cpf = cpf;
+                    master.TotalVendas = totalVendas;
+                    master.Salario = salario;
+                    master.MetaDeVendas = metaDeVendas;
+                    master.CalcularSalarioFinal();
+                    Console.WriteLine($"Vendedor master-> {master}");
+                }
+            }
+
+            void EscolhaLideranca(string cpf, double totalVendas, double salario, double metaDeVendas, int opcao )
+            {
+                Console.Write("Total Vendas da Concessionária: ");
+                double totalVendasConc = Convert.ToDouble(Console.ReadLine());
+                
+                Console.Write("Metas De Vendas da Concessionária: ");
+                double metasDeVendasConc = Convert.ToDouble(Console.ReadLine());
+
+                if (opcao == 2) 
+                {
+                    SupervisorDeVendas supervisor = new SupervisorDeVendas();
+                    supervisor.Cpf = cpf;
+                    supervisor.TotalVendas = totalVendas;
+                    supervisor.Salario = salario;
+                    supervisor.MetaDeVendas = metaDeVendas;
+                    supervisor.MetasDeVendasConc = metasDeVendasConc;
+                    supervisor.TotalVendasConc = totalVendasConc;
+                    supervisor.CalcularSalarioFinal();
+                    Console.WriteLine($"Supervisor-> {supervisor}");
+                } else
+                {
+                    Gerente gerente = new Gerente();
+                    gerente.Cpf = cpf;
+                    gerente.TotalVendas = totalVendas;
+                    gerente.Salario = salario;
+                    gerente.MetaDeVendas = metaDeVendas;
+                    gerente.MetasDeVendasConc = metasDeVendasConc;
+                    gerente.TotalVendasConc = totalVendasConc;
+                    gerente.CalcularSalarioFinal();
+                    Console.WriteLine($"Gerente-> {gerente}");
+
+                }
+
+
+            }
+
+            /*Funcionario junior = new VendedorJunior();
             junior.Cpf = "10760979014";
             junior.TotalVendas = 115121;
             junior.Salario = 3000;
@@ -55,7 +161,7 @@ namespace Leandro_atividade2
             gerente.TotalVendasConc = junior.TotalVendas+master.TotalVendas+padrao.TotalVendas+supervisor.TotalVendas+gerente.TotalVendas;
             gerente.MetasDeVendasConc = junior.MetaDeVendas + master.MetaDeVendas + padrao.MetaDeVendas + supervisor.MetaDeVendas + gerente.MetaDeVendas; ;
             gerente.CalcularSalarioFinal();
-            Console.WriteLine(gerente);
+            Console.WriteLine(gerente);*/
         }
     }
 }
